@@ -1,4 +1,4 @@
-const API_BASE = 'https://api.redolass.redberryinternship.ge/api';
+const API_BASE = 'https://api.redclass.redberryinternship.ge/api';
 
 const Token = () => localStorage.getItem('token');
 
