@@ -43,11 +43,11 @@ function renderNavbar() {
     right.innerHTML = `
       <div class="navbar__navigation">
         <a href="catalog.html" class="navbar__link">
-          <img src="assets/icons/browse.svg" style="width:24px;height:24px;" alt="" />
+          <img src="assets/sparks.svg" style="width:24px;height:24px;" alt="" />
           Browse Courses
         </a>
         <button class="navbar__link" id="navbar-enrolled-btn">
-          <img src="assets/icons/enrolled.svg" style="width:24px;height:24px;" alt="" />
+          <img src="assets/sparks.svg" style="width:24px;height:24px;" alt="" />
           Enrolled Courses
         </button>
       </div>
@@ -73,7 +73,7 @@ function renderNavbar() {
       <div class="navbar__auth">
         <div class="navbar__navigation">
           <a href="catalog.html" class="navbar__link">
-            <img src="assets/icons/browse.svg" style="width:24px;height:24px;" alt="" />
+            <img src="assets/sparks.svg" style="width:24px;height:24px;" alt="" />
             Browse Courses
           </a>
         </div>

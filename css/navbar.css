@@ -1,7 +1,6 @@
 button {
   font: inherit;
 }
-
 .navbar {
   position: fixed;
   top: 0;
@@ -13,7 +12,6 @@ button {
   padding: 0px 177px;
   z-index: 100;
 }
-
 .navbar__inner {
   max-width: 1920px;
   margin: 0 auto;
@@ -23,8 +21,6 @@ button {
   align-items: center;
   justify-content: space-between;
 }
-
-/* LOGO */
 .navbar__logo {
   display: flex;
   align-items: center;
@@ -39,8 +35,6 @@ button {
   border: 3px solid var(--color-purple-500);
   background-color: var(--color-purple-500);
 }
-
-/* RIGHT SIDE */
 .navbar__right {
   display: flex;
   align-items: center;
@@ -51,7 +45,6 @@ button {
   align-items: center;
   gap: 8px;
 }
-/* NAV LINKS (Browse Courses, Enrolled Courses) */
 .navbar__link {
   display: flex;
   align-items: center;
@@ -91,7 +84,6 @@ button {
   border: none;
 }
 
-/* AUTH BUTTONS */
 .navbar__navigation {
   display: flex;
   align-items: center;
@@ -134,7 +126,6 @@ button {
   gap: 43px;
 }
 
-/* PROFILE BUTTON */
 .navbar__profile-btn {
   position: relative;
   width: 38px;
@@ -165,7 +156,6 @@ button {
   border: 2px solid var(--color-purple-200);
 }
 
-/* yellow dot — incomplete profile */
 .navbar__dot {
   position: absolute;
   bottom: -2px;

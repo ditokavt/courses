@@ -413,3 +413,16 @@
   width: 85px;
   flex-shrink: 0;
 }
+select.form-input {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+.profile__age-group .input-wrapper {
+  position: static;
+}
+
+#profile-age {
+  position: relative;
+  z-index: 9999;
+}

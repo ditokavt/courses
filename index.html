@@ -29,11 +29,42 @@
     </div>
   </header>
 
-  <!-- ===== PAGE ===== -->
+  <!-- PAGE  -->
   <main class="page-wrapper">
-    <div class="container" id="dashboard-root">
-    </div>
-  </main>
+  <div class="container">
+
+    <section class="hero">
+      <div class="hero__content">
+        <h1 class="hero__title">Start learning something new today</h1>
+        <p class="hero__subtitle">
+          Explore a wide range of expert-led courses in design, development,
+          business, and more. Find the skills you need to grow your career
+          and learn at your own pace.
+        </p>
+        <a href="catalog.html" class="hero__btn">Browse Courses</a>
+      </div>
+
+      <div class="hero__carousel-nav">
+        <div class="hero__dots">
+          <span class="hero__dot hero__dot--active"></span>
+          <span class="hero__dot"></span>
+          <span class="hero__dot"></span>
+        </div>
+        <div class="hero__arrows">
+          <button class="hero__arrow hero__arrow--left">
+            <img src="./assets/arrow-left.svg" alt="arrow left">
+          </button>
+          <button class="hero__arrow hero__arrow--right">
+            <img src="./assets/arrow-right.svg" alt="arrow right">
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div id="dashboard-root"></div>
+
+  </div>
+</main>
 
   <script src="./js/api.js"></script>
   <script src="./js/auth.js"></script>

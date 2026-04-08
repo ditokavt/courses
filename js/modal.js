@@ -378,6 +378,14 @@ function handleRegisterBack() {
 // =====================
 // PROFILE MODAL
 // =====================
+function buildAgeOptions(selected) {
+  let opts = '<option value="">--</option>';
+  for (let i = 1; i <= 120; i++) {
+    opts += `<option value="${i}" ${selected == i ? 'selected' : ''}>${i}</option>`;
+  }
+  return opts;
+}
+
 function initProfileModal() {
   const html = `
   <div class="modal-overlay" id="modal-profile">
@@ -444,8 +452,9 @@ function initProfileModal() {
           <div class="form-group profile__age-group">
             <label class="form-label">Age</label>
             <div class="input-wrapper">
-              <input class="form-input profile-input" type="number" id="profile-age" placeholder="29" min="16" max="120" />
-              <span class="input-icon" id="profile-age-icon"></span>
+              <select class="form-input profile-input profile-select" id="profile-age">
+                <option value="">--</option>
+              </select>
             </div>
             <span class="form-error" id="profile-age-error"></span>
           </div>
@@ -473,11 +482,20 @@ function initProfileModal() {
   </div>`;
   document.body.insertAdjacentHTML('beforeend', html);
 
+  // age options 1-120
+  const ageSelect = document.getElementById('profile-age');
+  for (let i = 1; i <= 120; i++) {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = i;
+    ageSelect.appendChild(opt);
+  }
+
   document.getElementById('profile-avatar-input').addEventListener('change', handleProfileAvatarSelect);
   document.getElementById('profile-submit').addEventListener('click', handleProfileSave);
   document.getElementById('profile-fullname').addEventListener('blur', validateFullName);
   document.getElementById('profile-mobile').addEventListener('blur', validateMobile);
-  document.getElementById('profile-age').addEventListener('blur', validateAge);
+  document.getElementById('profile-age').addEventListener('change', validateAge);
 
   document.getElementById('profile-mobile').addEventListener('input', (e) => {
     e.target.value = e.target.value.replace(/\D/g, '').slice(0, 9);
@@ -489,27 +507,17 @@ function openProfileModal() {
   if (!user) return;
 
   document.getElementById('profile-username-display').textContent = user.username || 'Username';
-  document.getElementById('profile-email').value = user.email || '';
+  document.getElementById('profile-email').value    = user.email || '';
   document.getElementById('profile-fullname').value = user.fullName || '';
-  document.getElementById('profile-mobile').value = (user.mobileNumber || '').replace(/\D/g, '');
-  document.getElementById('profile-age').value = user.age || '';
+  document.getElementById('profile-mobile').value   = (user.mobileNumber || '').replace(/\D/g, '');
+  document.getElementById('profile-age').value      = user.age || '';
 
-  // mobile icon — თუ შევსებულია, checkmark გამოვაჩინოთ
-  const mobileVal = (user.mobileNumber || '').replace(/\D/g, '');
+  const mobileVal  = (user.mobileNumber || '').replace(/\D/g, '');
   const mobileIcon = document.getElementById('profile-mobile-icon');
   if (mobileVal.length === 9 && mobileVal.startsWith('5')) {
     mobileIcon.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-grey-300)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>`;
   } else {
     mobileIcon.innerHTML = '';
-  }
-
-  // age icon
-  const ageVal = parseInt(user.age);
-  const ageIcon = document.getElementById('profile-age-icon');
-  if (ageVal >= 16 && ageVal <= 120) {
-    ageIcon.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-grey-300)" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>`;
-  } else {
-    ageIcon.innerHTML = '';
   }
 
   if (user.avatar) {
@@ -525,7 +533,7 @@ function openProfileModal() {
   const complete = auth.isProfileComplete();
   const statusEl = document.getElementById('profile-status-text');
   statusEl.textContent = complete ? 'Profile is Complete' : 'Profile is Incomplete';
-  statusEl.className = 'profile__status ' + (complete ? 'profile__status--complete' : 'profile__status--incomplete');
+  statusEl.className   = 'profile__status ' + (complete ? 'profile__status--complete' : 'profile__status--incomplete');
 
   openModal('profile');
 }
@@ -563,8 +571,8 @@ function handleProfileAvatarSelect(e) {
 
 function validateFullName() {
   const val = document.getElementById('profile-fullname').value.trim();
-  if (!val) { setError('profile-fullname-error', 'Name is required'); return false; }
-  if (val.length < 3) { setError('profile-fullname-error', 'Name must be at least 3 characters'); return false; }
+  if (!val)            { setError('profile-fullname-error', 'Name is required'); return false; }
+  if (val.length < 3)  { setError('profile-fullname-error', 'Name must be at least 3 characters'); return false; }
   if (val.length > 50) { setError('profile-fullname-error', 'Name must not exceed 50 characters'); return false; }
   setError('profile-fullname-error', '');
   return true;
@@ -594,31 +602,17 @@ function validateMobile() {
 }
 
 function validateAge() {
-  const raw  = document.getElementById('profile-age').value;
-  const val  = parseInt(raw);
-  const icon = document.getElementById('profile-age-icon');
+  const raw = document.getElementById('profile-age').value;
+  const val = parseInt(raw);
   if (!raw) {
     setError('profile-age-error', 'Age is required');
-    if (icon) icon.innerHTML = '';
-    return false;
-  }
-  if (isNaN(val)) {
-    setError('profile-age-error', 'Age must be a number');
-    if (icon) icon.innerHTML = '';
     return false;
   }
   if (val < 16) {
     setError('profile-age-error', 'You must be at least 16 years old to enroll');
-    if (icon) icon.innerHTML = '';
-    return false;
-  }
-  if (val > 120) {
-    setError('profile-age-error', 'Please enter a valid age');
-    if (icon) icon.innerHTML = '';
     return false;
   }
   setError('profile-age-error', '');
-  if (icon) icon.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-grey-300)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>`;
   return true;
 }
 
@@ -666,7 +660,9 @@ async function handleProfileSave() {
 }
 
 
+// =====================
 // HELPERS
+// =====================
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
