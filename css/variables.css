@@ -1,5 +1,5 @@
 :root {
-  /*  PURPLE  */
+  /* --- PURPLE PALETTE --- */
   --color-purple-50:  #EEEDFC;
   --color-purple-100: #DDDBFA;
   --color-purple-200: #B7B3F4;
@@ -12,7 +12,7 @@
   --color-purple-900: #0A0836;
   --color-purple-950: #05041B;
 
-  /*  GREYSCALE  */
+  /* --- GREYSCALE --- */
   --color-grey-50:  #FFFFFF;
   --color-grey-100: #F5F5F5;
   --color-grey-200: #D1D1D1;
@@ -25,13 +25,139 @@
   --color-grey-900: #141414;
   --color-grey-950: #0A0A0A;
 
-  /*  HELPER  */
   --color-error:         #F4161A;
   --color-error-light:   #F66466;
   --color-warning:       #F4A316;
   --color-success:       #1DC31D;
   --color-success-light: #1DC31D1A;
-
-  /*  FONT  */
   --font-family: 'Inter', sans-serif;
+
+  --fs-display: 48px;
+  --fs-h1: 40px;
+  --fs-h2: 32px;
+  --fs-h3: 24px;
+  --fs-h4: 20px;
+  --fs-h5: 20px;
+  --fs-body-xl: 24px;
+  --fs-body-l: 20px;
+  --fs-body-m: 18px;
+  --fs-body-s: 16px;
+  --fs-body-xs: 14px;
+  --fs-micro: 12px;
+
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+}
+
+.text-display {
+  font-family: var(--font-family);
+  font-size: var(--fs-display);
+  font-weight: var(--fw-bold);
+  line-height: 100%;
+  letter-spacing: -0.5px;
+}
+
+.text-h1 {
+  font-family: var(--font-family);
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-semibold);
+  line-height: 100%;
+}
+
+.text-h2 {
+  font-family: var(--font-family);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-semibold);
+  line-height: 100%;
+}
+
+.text-h3 {
+  font-family: var(--font-family);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-semibold);
+  line-height: 100%;
+}
+.text-h4 {
+  font-family: var(--font-family);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-semibold);
+  line-height: 100%;
+}
+.text-h5 {
+  font-family: var(--font-family);
+  font-size: var(--fs-h5);
+  font-weight: var(--fw-semibold);
+  line-height: 100%;
+}
+.text-body-xl {
+  font-family: var(--font-family);
+  font-size: var(--fs-body-xl);
+  font-weight: var(--fw-medium);
+  line-height: 100%;
+}
+
+.text-body-l {
+  font-family: var(--font-family);
+  font-size: var(--fs-body-l);
+  font-weight: var(--fw-medium);
+  line-height: auto;
+}
+
+.text-body-m {
+  font-family: var(--font-family);
+  font-size: var(--fs-body-m);
+  font-weight: var(--fw-medium);
+  line-height: 100%;
+}
+
+.text-body-m-regular {
+  font-family: var(--font-family);
+  font-size: var(--fs-body-m);
+  font-weight: var(--fw-regular);
+  line-height: auto;
+}
+
+.text-body-s {
+  font-family: var(--font-family);
+  font-size: var(--fs-body-s);
+  font-weight: var(--fw-medium);
+  line-height: 100%;
+}
+
+.text-body-xs {
+  font-family: var(--font-family);
+  font-size: var(--fs-body-xs);
+  font-weight: var(--fw-medium);
+  line-height: 100%;
+}
+
+.text-micro-medium {
+  font-family: var(--font-family);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-medium);
+  line-height: 100%;
+}
+
+.text-micro-regular {
+  font-family: var(--font-family);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-regular);
+  line-height: auto;
+}
+
+.text-helper-medium {
+  font-family: var(--font-family);
+  font-size: var(--fs-body-xs);
+  font-weight: var(--fw-medium);
+  line-height: 100%;
+}
+
+.text-helper-regular {
+  font-family: var(--font-family);
+  font-size: var(--fs-body-xs);
+  font-weight: var(--fw-regular);
+  line-height: 100%;
 }

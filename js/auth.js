@@ -36,17 +36,17 @@ function renderNavbar() {
   if (!right) return;
 
   if (auth.isLoggedIn()) {
-    const user       = auth.getUser();
+    const user      = auth.getUser();
     const incomplete = !auth.isProfileComplete();
-    const initial    = (user?.username || 'U')[0].toUpperCase();
+    const initial   = (user?.username || 'U')[0].toUpperCase();
 
     right.innerHTML = `
       <div class="navbar__navigation">
-        <a href="catalog.html" class="navbar__link">
+        <a href="catalog.html" class="navbar__link text-body-l">
           <img src="assets/sparks.svg" style="width:24px;height:24px;" alt="" />
           Browse Courses
         </a>
-        <button class="navbar__link" id="navbar-enrolled-btn">
+        <button class="navbar__link text-body-l" id="navbar-enrolled-btn">
           <img src="assets/sparks.svg" style="width:24px;height:24px;" alt="" />
           Enrolled Courses
         </button>
@@ -54,9 +54,12 @@ function renderNavbar() {
       <button class="navbar__profile-btn" id="navbar-profile-btn">
         ${user?.avatar
           ? `<img class="navbar__avatar" src="${user.avatar}" alt="avatar" />`
-          : `<div class="navbar__avatar-placeholder">${initial}</div>`
+          : `<div class="navbar__avatar-placeholder text-body-s">${initial}</div>`
         }
-        ${incomplete ? '<span class="navbar__dot"></span>' : '<span class="navbar__dot navbar__dot--complete"></span>'}
+        ${incomplete
+          ? '<span class="navbar__dot"></span>'
+          : '<span class="navbar__dot navbar__dot--complete"></span>'
+        }
       </button>
     `;
 
@@ -72,7 +75,7 @@ function renderNavbar() {
     right.innerHTML = `
       <div class="navbar__auth">
         <div class="navbar__navigation">
-          <a href="catalog.html" class="navbar__link">
+          <a href="catalog.html" class="navbar__link text-body-l">
             <img src="assets/sparks.svg" style="width:24px;height:24px;" alt="" />
             Browse Courses
           </a>

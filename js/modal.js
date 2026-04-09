@@ -33,7 +33,6 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeAllModals();
 });
 
-
 // =====================
 // LOGIN MODAL
 // =====================
@@ -42,8 +41,8 @@ function initLoginModal() {
   <div class="modal-overlay" id="modal-login">
     <div class="modal">
       <div class="modal__header">
-        <h2 class="modal__title">Welcome Back</h2>
-        <p class="modal__subtitle">Log in and continue your learning</p>
+        <h2 class="modal__title text-h2">Welcome Back</h2>
+        <p class="modal__subtitle text-body-xs">Log in and continue your learning</p>
         <button class="modal__close" onclick="closeModal('login')">
           <svg width="24" height="24" viewBox="0 0 16 16" fill="none">
             <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -51,16 +50,16 @@ function initLoginModal() {
         </button>
       </div>
       <div class="modal__body">
-        <div class="modal__api-error" id="login-api-error"></div>
+        <div class="modal__api-error text-body-xs" id="login-api-error"></div>
         <div class="form-group">
-          <label class="form-label">Email *</label>
-          <input class="form-input" type="email" id="login-email" placeholder="you@example.com" />
-          <span class="form-error" id="login-email-error"></span>
+          <label class="form-label text-body-xs">Email *</label>
+          <input class="form-input text-body-xs" type="email" id="login-email" placeholder="you@example.com" />
+          <span class="form-error text-micro-regular" id="login-email-error"></span>
         </div>
         <div class="form-group">
-          <label class="form-label">Password *</label>
+          <label class="form-label text-body-xs">Password *</label>
           <div class="input-wrapper">
-            <input class="form-input" type="password" id="login-password" placeholder="••••••••" />
+            <input class="form-input text-body-xs" type="password" id="login-password" placeholder="••••••••" />
             <button class="input-eye" type="button" onclick="togglePassword('login-password', this)">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
@@ -68,13 +67,13 @@ function initLoginModal() {
               </svg>
             </button>
           </div>
-          <span class="form-error" id="login-password-error"></span>
+          <span class="form-error text-micro-regular" id="login-password-error"></span>
         </div>
       </div>
       <div class="modal__footer">
-        <button class="btn btn--primary" id="login-submit">Log In</button>
-        <div class="modal__or">or</div>
-        <p class="modal__switch">Don't have an account? <a onclick="openModal('register')">Sign Up</a></p>
+        <button class="btn btn--primary text-body-s" id="login-submit">Log In</button>
+        <div class="modal__or text-micro-regular">or</div>
+        <p class="modal__switch text-body-xs">Don't have an account? <a onclick="openModal('register')">Sign Up</a></p>
       </div>
     </div>
   </div>`;
@@ -123,9 +122,8 @@ async function handleLogin() {
   setLoading('login-submit', false, 'Log In');
 }
 
-
 // =====================
-// REGISTER MODAL (3 ნაბიჯი)
+// REGISTER MODAL
 // =====================
 let registerStep = 1;
 let registerData = {};
@@ -140,8 +138,8 @@ function initRegisterModal() {
             <path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
-        <h2 class="modal__title">Create Account</h2>
-        <p class="modal__subtitle">Join and start learning today</p>
+        <h2 class="modal__title text-h2">Create Account</h2>
+        <p class="modal__subtitle text-body-xs">Join and start learning today</p>
         <button class="modal__close" onclick="closeModal('register')">
           <svg width="24" height="24" viewBox="0 0 16 16" fill="none">
             <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -155,9 +153,9 @@ function initRegisterModal() {
       </div>
       <div class="modal__body" id="reg-body"></div>
       <div class="modal__footer">
-        <button class="btn btn--primary" id="reg-next-btn">Next</button>
-        <div class="modal__or">or</div>
-        <p class="modal__switch">Already have an account? <a onclick="openModal('login')">Log In</a></p>
+        <button class="btn btn--primary text-body-s" id="reg-next-btn">Next</button>
+        <div class="modal__or text-micro-regular">or</div>
+        <p class="modal__switch text-body-xs">Already have an account? <a onclick="openModal('login')">Log In</a></p>
       </div>
     </div>
   </div>`;
@@ -193,11 +191,11 @@ function renderRegisterStep(step) {
   if (step === 1) {
     btn.textContent = 'Next';
     body.innerHTML = `
-      <div class="modal__api-error" id="reg-api-error"></div>
+      <div class="modal__api-error text-body-xs" id="reg-api-error"></div>
       <div class="form-group">
-        <label class="form-label">Email *</label>
-        <input class="form-input" type="email" id="reg-email" placeholder="you@example.com" value="${registerData.email || ''}" />
-        <span class="form-error" id="reg-email-error"></span>
+        <label class="form-label text-body-xs">Email *</label>
+        <input class="form-input text-body-xs" type="email" id="reg-email" placeholder="you@example.com" value="${registerData.email || ''}" />
+        <span class="form-error text-micro-regular" id="reg-email-error"></span>
       </div>`;
   }
 
@@ -205,9 +203,9 @@ function renderRegisterStep(step) {
     btn.textContent = 'Next';
     body.innerHTML = `
       <div class="form-group">
-        <label class="form-label">Password *</label>
+        <label class="form-label text-body-xs">Password *</label>
         <div class="input-wrapper">
-          <input class="form-input" type="password" id="reg-password" placeholder="••••••••" />
+          <input class="form-input text-body-xs" type="password" id="reg-password" placeholder="••••••••" />
           <button class="input-eye" type="button" onclick="togglePassword('reg-password', this)">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
@@ -215,12 +213,12 @@ function renderRegisterStep(step) {
             </svg>
           </button>
         </div>
-        <span class="form-error" id="reg-password-error"></span>
+        <span class="form-error text-micro-regular" id="reg-password-error"></span>
       </div>
       <div class="form-group">
-        <label class="form-label">Confirm Password *</label>
+        <label class="form-label text-body-xs">Confirm Password *</label>
         <div class="input-wrapper">
-          <input class="form-input" type="password" id="reg-confirm" placeholder="••••••••" />
+          <input class="form-input text-body-xs" type="password" id="reg-confirm" placeholder="••••••••" />
           <button class="input-eye" type="button" onclick="togglePassword('reg-confirm', this)">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
@@ -228,31 +226,31 @@ function renderRegisterStep(step) {
             </svg>
           </button>
         </div>
-        <span class="form-error" id="reg-confirm-error"></span>
+        <span class="form-error text-micro-regular" id="reg-confirm-error"></span>
       </div>`;
   }
 
   if (step === 3) {
     btn.textContent = 'Sign Up';
     body.innerHTML = `
-      <div class="modal__api-error" id="reg-api-error"></div>
+      <div class="modal__api-error text-body-xs" id="reg-api-error"></div>
       <div class="form-group">
-        <label class="form-label">Username *</label>
-        <input class="form-input" type="text" id="reg-username" placeholder="username" />
-        <span class="form-error" id="reg-username-error"></span>
+        <label class="form-label text-body-xs">Username *</label>
+        <input class="form-input text-body-xs" type="text" id="reg-username" placeholder="username" />
+        <span class="form-error text-micro-regular" id="reg-username-error"></span>
       </div>
       <div class="form-group">
-        <label class="form-label">Upload Avatar <span style="color:var(--color-grey-400)">(optional)</span></label>
-        <div class="avatar-drop" id="avatar-drop" onclick="document.getElementById('avatar-input').click()">
+        <label class="form-label text-body-xs">Upload Avatar <span class="text-micro-regular" style="color:var(--color-grey-400)">(optional)</span></label>
+        <div class="avatar-drop text-body-xs" id="avatar-drop" onclick="document.getElementById('avatar-input').click()">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
           </svg>
           <span>Drag and drop or <u>Upload file</u></span>
-          <small>JPG, PNG or WebP</small>
+          <small class="text-micro-regular">JPG, PNG or WebP</small>
         </div>
         <img class="avatar-preview" id="avatar-preview" src="" alt="" />
         <input type="file" id="avatar-input" accept=".jpg,.jpeg,.png,.webp" style="display:none" />
-        <span class="form-error" id="avatar-error"></span>
+        <span class="form-error text-micro-regular" id="avatar-error"></span>
       </div>`;
 
     setTimeout(() => {
@@ -297,7 +295,6 @@ async function handleRegisterNext() {
       setError('reg-email-error', 'Please enter a valid email');
       return;
     }
-
     setLoading('reg-next-btn', true, 'Checking...');
     try {
       const formData = new FormData();
@@ -314,7 +311,6 @@ async function handleRegisterNext() {
         return;
       }
     } catch(e) {}
-
     setLoading('reg-next-btn', false, 'Next');
     registerData.email = email;
     renderRegisterStep(2);
@@ -338,7 +334,6 @@ async function handleRegisterNext() {
     if (!username || username.length < 3) { setError('reg-username-error', 'Username must be at least 3 characters'); return; }
     registerData.username = username;
     setLoading('reg-next-btn', true, 'Creating account...');
-
     try {
       const formData = new FormData();
       formData.append('username', registerData.username);
@@ -346,11 +341,9 @@ async function handleRegisterNext() {
       formData.append('password', registerData.password);
       formData.append('password_confirmation', registerData.password);
       if (registerData.avatarFile) formData.append('avatar', registerData.avatarFile);
-
       const res = await fetch('https://api.redclass.redberryinternship.ge/api/register', {
         method: 'POST', body: formData,
       }).then(r => r.json());
-
       if (res.data?.token) {
         auth.setSession(res.data.token, res.data.user);
         registerData = {};
@@ -374,24 +367,15 @@ function handleRegisterBack() {
   if (registerStep > 1) renderRegisterStep(registerStep - 1);
 }
 
-
 // =====================
 // PROFILE MODAL
 // =====================
-function buildAgeOptions(selected) {
-  let opts = '<option value="">--</option>';
-  for (let i = 1; i <= 120; i++) {
-    opts += `<option value="${i}" ${selected == i ? 'selected' : ''}>${i}</option>`;
-  }
-  return opts;
-}
-
 function initProfileModal() {
   const html = `
   <div class="modal-overlay" id="modal-profile">
     <div class="modal modal--profile">
       <div class="modal__header modal__header--profile">
-        <h2 class="modal__title">Profile</h2>
+        <h2 class="modal__title text-h2">Profile</h2>
         <button class="modal__close" onclick="closeProfileModal()">
           <svg width="24" height="24" viewBox="0 0 16 16" fill="none">
             <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -402,20 +386,20 @@ function initProfileModal() {
         <div class="profile__user-row">
           <div class="profile__avatar-wrap">
             <img class="profile__avatar" id="profile-avatar-img" src="" alt="avatar" />
-            <div class="profile__avatar-placeholder" id="profile-avatar-placeholder">U</div>
+            <div class="profile__avatar-placeholder text-h4" id="profile-avatar-placeholder">U</div>
           </div>
           <div class="profile__user-info">
-            <span class="profile__username" id="profile-username-display">Username</span>
-            <span class="profile__status" id="profile-status-text"></span>
+            <span class="profile__username text-h4" id="profile-username-display">Username</span>
+            <span class="profile__status text-micro-regular" id="profile-status-text"></span>
           </div>
         </div>
 
-        <div class="modal__api-error" id="profile-api-error"></div>
+        <div class="modal__api-error text-body-xs" id="profile-api-error"></div>
 
         <div class="form-group">
-          <label class="form-label">Full Name</label>
+          <label class="form-label text-body-xs">Full Name</label>
           <div class="input-wrapper">
-            <input class="form-input profile-input" type="text" id="profile-fullname" placeholder="Username" />
+            <input class="form-input text-body-xs profile-input" type="text" id="profile-fullname" placeholder="Username" />
             <span class="input-icon">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
@@ -423,13 +407,13 @@ function initProfileModal() {
               </svg>
             </span>
           </div>
-          <span class="form-error" id="profile-fullname-error"></span>
+          <span class="form-error text-micro-regular" id="profile-fullname-error"></span>
         </div>
 
         <div class="form-group">
-          <label class="form-label">Email</label>
+          <label class="form-label text-body-xs">Email</label>
           <div class="input-wrapper">
-            <input class="form-input profile-input profile-input--readonly" type="email" id="profile-email" placeholder="Email@gmail.com" readonly />
+            <input class="form-input text-body-xs profile-input profile-input--readonly" type="email" id="profile-email" placeholder="Email@gmail.com" readonly />
             <span class="input-icon input-icon--success">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="20 6 9 17 4 12"/>
@@ -440,49 +424,48 @@ function initProfileModal() {
 
         <div class="profile__row">
           <div class="form-group" style="flex:1">
-            <label class="form-label">Mobile Number</label>
+            <label class="form-label text-body-xs">Mobile Number</label>
             <div class="input-wrapper">
-              <span class="input-prefix">+995</span>
-              <input class="form-input profile-input profile-input--prefix" type="tel" id="profile-mobile" placeholder="599209820" />
+              <span class="input-prefix text-body-xs">+995</span>
+              <input class="form-input text-body-xs profile-input profile-input--prefix" type="tel" id="profile-mobile" placeholder="599209820" />
               <span class="input-icon" id="profile-mobile-icon"></span>
             </div>
-            <span class="form-error" id="profile-mobile-error"></span>
+            <span class="form-error text-micro-regular" id="profile-mobile-error"></span>
           </div>
 
           <div class="form-group profile__age-group">
-            <label class="form-label">Age</label>
+            <label class="form-label text-body-xs">Age</label>
             <div class="input-wrapper">
-              <select class="form-input profile-input profile-select" id="profile-age">
+              <select class="form-input text-body-xs profile-input profile-select" id="profile-age">
                 <option value="">--</option>
               </select>
             </div>
-            <span class="form-error" id="profile-age-error"></span>
+            <span class="form-error text-micro-regular" id="profile-age-error"></span>
           </div>
         </div>
 
         <div class="form-group">
-          <label class="form-label">Upload Avatar</label>
-          <div class="avatar-drop" id="profile-avatar-drop" onclick="document.getElementById('profile-avatar-input').click()">
+          <label class="form-label text-body-xs">Upload Avatar</label>
+          <div class="avatar-drop text-body-xs" id="profile-avatar-drop" onclick="document.getElementById('profile-avatar-input').click()">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
             </svg>
             <span>Drag and drop or <u>Upload file</u></span>
-            <small>JPG, PNG or WebP</small>
+            <small class="text-micro-regular">JPG, PNG or WebP</small>
           </div>
           <img class="avatar-preview" id="profile-avatar-preview" src="" alt="" />
           <input type="file" id="profile-avatar-input" accept=".jpg,.jpeg,.png,.webp" style="display:none" />
-          <span class="form-error" id="profile-avatar-error"></span>
+          <span class="form-error text-micro-regular" id="profile-avatar-error"></span>
         </div>
       </div>
 
       <div class="modal__footer">
-        <button class="btn btn--primary" id="profile-submit">Update Profile</button>
+        <button class="btn btn--primary text-body-s" id="profile-submit">Update Profile</button>
       </div>
     </div>
   </div>`;
   document.body.insertAdjacentHTML('beforeend', html);
 
-  // age options 1-120
   const ageSelect = document.getElementById('profile-age');
   for (let i = 1; i <= 120; i++) {
     const opt = document.createElement('option');
@@ -496,7 +479,6 @@ function initProfileModal() {
   document.getElementById('profile-fullname').addEventListener('blur', validateFullName);
   document.getElementById('profile-mobile').addEventListener('blur', validateMobile);
   document.getElementById('profile-age').addEventListener('change', validateAge);
-
   document.getElementById('profile-mobile').addEventListener('input', (e) => {
     e.target.value = e.target.value.replace(/\D/g, '').slice(0, 9);
   });
@@ -533,7 +515,7 @@ function openProfileModal() {
   const complete = auth.isProfileComplete();
   const statusEl = document.getElementById('profile-status-text');
   statusEl.textContent = complete ? 'Profile is Complete' : 'Profile is Incomplete';
-  statusEl.className   = 'profile__status ' + (complete ? 'profile__status--complete' : 'profile__status--incomplete');
+  statusEl.className   = 'profile__status text-micro-regular ' + (complete ? 'profile__status--complete' : 'profile__status--incomplete');
 
   openModal('profile');
 }
@@ -604,14 +586,8 @@ function validateMobile() {
 function validateAge() {
   const raw = document.getElementById('profile-age').value;
   const val = parseInt(raw);
-  if (!raw) {
-    setError('profile-age-error', 'Age is required');
-    return false;
-  }
-  if (val < 16) {
-    setError('profile-age-error', 'You must be at least 16 years old to enroll');
-    return false;
-  }
+  if (!raw) { setError('profile-age-error', 'Age is required'); return false; }
+  if (val < 16) { setError('profile-age-error', 'You must be at least 16 years old to enroll'); return false; }
   setError('profile-age-error', '');
   return true;
 }
@@ -658,7 +634,6 @@ async function handleProfileSave() {
 
   setLoading('profile-submit', false, 'Update Profile');
 }
-
 
 // =====================
 // HELPERS
