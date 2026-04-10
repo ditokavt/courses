@@ -74,4 +74,7 @@ const api = {
 
   submitReview: (courseId, data) =>
     fetch(`${API_BASE}/courses/${courseId}/reviews`, { method: 'POST', headers: headers(true), body: JSON.stringify(data) }).then(r => r.json()),
+
+  deleteEnrollment: (id) =>
+  fetch(`${API_BASE}/enrollments/${id}`, { method: 'DELETE', headers: headers(true) }).then(r => r.status === 204 ? {} : r.json()),
 };
