@@ -1,0 +1,117 @@
+/* catalog.css - Phase 1 */
+
+.catalog-wrapper {
+  max-width: 1566px;
+  margin: 0 auto;
+  padding: 40px 0;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+#filter-sidebar {
+  border-radius: 16px;
+  padding: 0 0 0 24px;
+  position: sticky;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  width: 309px;
+}
+
+/* Breadcrumbs */
+.catalog__breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 24px 0 0 24px;
+  max-width: 1566px;
+}
+
+.catalog__breadcrumb-link {
+  color: var(--color-grey-500);
+  text-decoration: none;
+  transition: color 150ms;
+}
+
+/* Filters Header & Clear Button */
+.filter__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 32px;
+  width: 100%;
+}
+
+.filter__clear {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-grey-400);
+  transition: color 0.2s;
+}
+
+.filter__clear.is-active {
+  color: var(--color-purple-500);
+}
+
+/* Filter Sections & Chips */
+.filter__section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 56px;
+}
+
+.filter__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7.5px 12px;
+  border-radius: 12px;
+  background: var(--color-grey-50);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter__chip input {
+  display: none;
+}
+
+.filter__chip.is-active {
+  background: var(--color-purple-100);
+}
+
+.filter__chip.is-active .filter__chip-label {
+  color: var(--color-purple-600);
+  font-weight: 500;
+}
+
+/* Main Grid Area */
+.catalog__main {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-left: 90px;
+}
+
+.catalog__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* Skeleton Placeholder */
+.catalog__card--skeleton {
+  background: var(--color-grey-50);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid var(--color-grey-100);
+}

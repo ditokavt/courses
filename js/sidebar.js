@@ -88,12 +88,24 @@ function enrollmentCard(e) {
 
   const weeklyLabel = schedule?.weeklySchedule?.label || '';
   const timeLabel = schedule?.timeSlot?.label || '';
-  const sessionName = schedule?.sessionType?.name || '';
+  const sessionName = schedule?.sessionType?.name || ''; // მაგ: "Online", "Hybrid", "In-Person"
   const location = schedule?.location || '';
+
+  // ხატულების შერჩევის ლოგიკა
+  let sessionIcon = 'assets/PackageOpen.svg'; // ნაგულისხმევი (default)
+  const type = sessionName.toLowerCase();
+
+  if (type.includes('online')) {
+    sessionIcon = 'assets/online.svg';
+  } else if (type.includes('hybrid')) {
+    sessionIcon = 'assets/hybrid.svg';
+  } else if (type.includes('person') || type.includes('office')) {
+    // აქ შეგიძლია ჩასვა in-person-ის მისამართი, თუ გაქვს
+    sessionIcon = 'assets/PackageOpen.svg'; 
+  }
 
   return `
   <div class="sidebar__card">
-
     <div class="sidebar__card-top-section">
       <div class="sidebar__card-img">
         <img src="${c.image || ''}" alt="${c.title}" onerror="this.parentElement.style.background='var(--color-grey-200)'" />
@@ -103,11 +115,10 @@ function enrollmentCard(e) {
           <span class="text-micro-medium" style="color:var(--color-grey-400)">
             Instructor: <span style="color:var(--color-grey-500)">${c.instructor?.name || ''}</span>
           </span>
-          ${rating ? `
           <div style="display:flex;align-items:center;gap:4px;">
             <span style="color:var(--color-warning);">★</span>
             <span class="text-micro-medium" style="color:var(--color-grey-600);">${rating}</span>
-          </div>` : ''}
+          </div>
         </div>
         <h3 class="sidebar__card-title text-h4">${c.title}</h3>
         <div class="sidebar__card-info">
@@ -118,6 +129,7 @@ function enrollmentCard(e) {
             </svg>
             <span class="text-micro-regular" style="color:var(--color-grey-500)">${weeklyLabel}</span>
           </div>` : ''}
+          
           ${timeLabel ? `
           <div class="sidebar__card-info-row">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-grey-400)" stroke-width="2">
@@ -125,18 +137,15 @@ function enrollmentCard(e) {
             </svg>
             <span class="text-micro-regular" style="color:var(--color-grey-500)">${timeLabel}</span>
           </div>` : ''}
+
           ${sessionName ? `
           <div class="sidebar__card-info-row">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-grey-400)" stroke-width="2">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-              <circle cx="9" cy="7" r="4"/>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
+            <img src="${sessionIcon}" width="14" height="14" alt="${sessionName}" style="filter: brightness(0) saturate(100%) invert(53%) sepia(0%) show-deg(0%) brightness(95%) contrast(94%);" />
             <span class="text-micro-regular" style="color:var(--color-grey-500)">${sessionName}</span>
           </div>` : ''}
+
           ${location ? `
-          <div class="sidebar__card-info-row ">
+          <div class="sidebar__card-info-row">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-grey-400)" stroke-width="2">
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
             </svg>
@@ -148,14 +157,13 @@ function enrollmentCard(e) {
 
     <div class="sidebar__card-bottom-section">
       <div class="sidebar__card-progress">
-        <span class="fillbar text-body-s"">${progress}% Complete</span>
+        <span class="fillbar text-body-s">${progress}% Complete</span>
         <div class="sidebar__progress-bar">
           <div class="sidebar__progress-fill" style="width:${progress}%"></div>
         </div>
       </div>
       <a href="course.html?id=${c.id}" class="sidebar__view-btn" onclick="closeSidebar()">View</a>
     </div>
-
   </div>
 `;
 }
