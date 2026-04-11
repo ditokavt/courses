@@ -1,28 +1,26 @@
 function initHeroCarousel() {
-  const dots = document.querySelectorAll('.hero__dot');
-  const left = document.querySelector('.hero__arrow--left');
-  const right = document.querySelector('.hero__arrow--right');
-  let current = 0;
+  const slides = document.querySelectorAll('.hero__slide');
+  const dots   = document.querySelectorAll('.hero__dot');
+  const left   = document.querySelector('.hero__arrow--left');
+  const right  = document.querySelector('.hero__arrow--right');
+  let current  = 0;
 
-  function setDot(index) {
-    if (!dots.length) return;
-    dots.forEach(d => d.classList.remove('hero__dot--active'));
-    dots[index].classList.add('hero__dot--active');
+  function goTo(index) {
+    slides[current].classList.remove('is-active');
+    dots[current].classList.remove('hero__dot--active');
     current = index;
-    if (left) {
-      left.disabled = current === 0;
-      left.style.opacity = current === 0 ? '0.3' : '1';
-    }
-    if (right) {
-      right.disabled = current === dots.length - 1;
-      right.style.opacity = current === dots.length - 1 ? '0.3' : '1';
-    }
+    slides[current].classList.add('is-active');
+    dots[current].classList.add('hero__dot--active');
+
+    if (left)  { left.disabled  = current === 0; left.style.opacity  = current === 0 ? '0.3' : '1'; }
+    if (right) { right.disabled = current === slides.length - 1; right.style.opacity = current === slides.length - 1 ? '0.3' : '1'; }
   }
 
-  if (left) left.addEventListener('click', () => { if (current > 0) setDot(current - 1); });
-  if (right) right.addEventListener('click', () => { if (current < dots.length - 1) setDot(current + 1); });
-  dots.forEach((dot, i) => dot.addEventListener('click', () => setDot(i)));
-  setDot(0);
+  if (left)  left.addEventListener('click',  () => { if (current > 0) goTo(current - 1); });
+  if (right) right.addEventListener('click', () => { if (current < slides.length - 1) goTo(current + 1); });
+  dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+  goTo(0);
 }
 
 function onAuthSuccess() {

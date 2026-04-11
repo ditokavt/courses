@@ -3,11 +3,14 @@
   height: 420px;
   background: url('../assets/bannerbackground.png') no-repeat center center;
   background-size: cover;
-  border-radius: 24px;
+  border-radius: 30px;
   padding: 64px;
   display: flex;
   position: relative;
   margin-top: 20px;
+}
+.hero__slide {
+  border-radius: 30px;
 }
 .page-wrapper {
   padding-top: 172px;
@@ -114,7 +117,22 @@
 .hero__arrow:disabled:hover {
   background: transparent;
 }
-
+.hero__slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 400ms ease;
+  padding: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.hero__slide.is-active {
+  opacity: 1;
+}
 
 
 .featured,

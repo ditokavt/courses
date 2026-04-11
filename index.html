@@ -30,34 +30,47 @@
   <main class="page-wrapper">
   <div class="container">
 
-    <section class="hero">
+    <section class="hero" id="hero-section">
+  <div class="hero__slides">
+    <div class="hero__slide is-active" style="background-image: url('assets/bannerbackground.png')">
       <div class="hero__content">
         <h1 class="hero__title">Start learning something new today</h1>
-        <p class="hero__subtitle">
-          Explore a wide range of expert-led courses in design, development,
-          business, and more. Find the skills you need to grow your career
-          and learn at your own pace.
-        </p>
+        <p class="hero__subtitle">Explore a wide range of expert-led courses in design, development, business, and more. Find the skills you need to grow your career and learn at your own pace.</p>
         <a href="catalog.html" class="hero__btn">Browse Courses</a>
       </div>
-
-      <div class="hero__carousel-nav">
-        <div class="hero__dots">
-          <span class="hero__dot hero__dot--active"></span>
-          <span class="hero__dot"></span>
-          <span class="hero__dot"></span>
-        </div>
-        <div class="hero__arrows">
-          <button class="hero__arrow hero__arrow--left">
-            <img src="./assets/arrow-left.svg" alt="arrow left">
-          </button>
-          <button class="hero__arrow hero__arrow--right">
-            <img src="./assets/arrow-right.svg" alt="arrow right">
-          </button>
-        </div>
+    </div>
+    <div class="hero__slide" style="background-image: url('assets/banner2.png')">
+      <div class="hero__content">
+        <h1 class="hero__title">Pick up where you left off</h1>
+        <p class="hero__subtitle">Your learning journey is already in progress. Continue your enrolled courses, track your progress, and stay on track toward completing your goals.</p>
+        <a href="catalog.html" class="hero__btn">Start Learning</a>
       </div>
-      <path d="./assets\sesion_type.svg"/><circle cx="12" cy="10" r="3"/>
-    </section>
+    </div>
+    <div class="hero__slide" style="background-image: url('assets/banner3.png')">
+      <div class="hero__content">
+        <h1 class="hero__title">Learn together, grow faster</h1>
+        <p class="hero__subtitle">Join thousands of learners worldwide. Collaborate, share knowledge, and achieve more together with our community-driven courses.</p>
+        <a href="catalog.html" class="hero__btn">Learn More</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__carousel-nav">
+    <div class="hero__dots">
+      <span class="hero__dot hero__dot--active"></span>
+      <span class="hero__dot"></span>
+      <span class="hero__dot"></span>
+    </div>
+    <div class="hero__arrows">
+      <button class="hero__arrow hero__arrow--left">
+        <img src="./assets/arrow-left.svg" alt="arrow left">
+      </button>
+      <button class="hero__arrow hero__arrow--right">
+        <img src="./assets/arrow-right.svg" alt="arrow right">
+      </button>
+    </div>
+  </div>
+</section>
 
     <div id="dashboard-root"></div>
 
