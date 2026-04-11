@@ -46,10 +46,10 @@ function renderNavbar() {
           <img src="assets/sparks.svg" style="width:24px;height:24px;" alt="" />
           Browse Courses
         </a>
-        <button class="navbar__link text-body-l" id="navbar-enrolled-btn">
+        <a class="navbar__link text-body-l" id="navbar-enrolled-btn">
           <img src="assets/sparks.svg" style="width:24px;height:24px;" alt="" />
           Enrolled Courses
-        </button>
+        </a>
       </div>
       <button class="navbar__profile-btn" id="navbar-profile-btn">
         ${user?.avatar

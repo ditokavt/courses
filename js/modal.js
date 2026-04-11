@@ -33,9 +33,7 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeAllModals();
 });
 
-// =====================
-// LOGIN MODAL
-// =====================
+
 function initLoginModal() {
   const html = `
   <div class="modal-overlay" id="modal-login">
@@ -122,9 +120,6 @@ async function handleLogin() {
   setLoading('login-submit', false, 'Log In');
 }
 
-// =====================
-// REGISTER MODAL
-// =====================
 let registerStep = 1;
 let registerData = {};
 
@@ -367,9 +362,6 @@ function handleRegisterBack() {
   if (registerStep > 1) renderRegisterStep(registerStep - 1);
 }
 
-// =====================
-// PROFILE MODAL
-// =====================
 function initProfileModal() {
   const html = `
   <div class="modal-overlay" id="modal-profile">
@@ -635,9 +627,7 @@ async function handleProfileSave() {
   setLoading('profile-submit', false, 'Update Profile');
 }
 
-// =====================
-// HELPERS
-// =====================
+
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }

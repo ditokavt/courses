@@ -58,10 +58,10 @@ button {
   border-radius: 8px;
   color: var(--color-grey-700);
   background: transparent;
-  transition: background 150ms, color 150ms;
   white-space: nowrap;
   text-decoration: none;
   border: none;
+  cursor: pointer;
 }
 
 .navbar__auth {

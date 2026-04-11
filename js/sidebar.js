@@ -62,7 +62,7 @@ async function loadEnrollments() {
       </div>
       <h3 class="sidebar__empty-title text-h3">No Enrolled Courses Yet</h3>
       <p class="sidebar__empty-sub text-body-xs">Your learning journey starts here!<br>Browse courses to get started.</p>
-      <a href="courses.html" class="sidebar__browse-btn text-body-s" onclick="closeSidebar()">Browse Courses</a>
+      <a href="catalog.html" class="sidebar__browse-btn text-body-s" onclick="closeSidebar()">Browse Courses</a>
     </div>
   `;
   return;
