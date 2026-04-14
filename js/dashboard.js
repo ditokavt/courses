@@ -64,9 +64,13 @@ async function initDashboard() {
         ${loggedIn && inProgressCourses.length > 3 ? '<button class="section__see-all text-body-xs" id="see-all-btn">See All</button>' : ''}
       </div>
       <div class="section__header">
-        <p class="section__subtitle text-body-m">Pick up where you left</p>
-        <button class="section__see-all text-body-xs" onclick="openSidebar()">See All</button>
-      </div>
+  <p class="section__subtitle text-body-m">Pick up where you left</p>
+  <button class="section__see-all text-body-m" 
+    ${inProgressCourses.length > 3 ? 'onclick="openSidebar()"' : 'disabled'}
+    style="${inProgressCourses.length <= 3 ? 'cursor:not-allowed;' : ''}">
+    See All
+  </button>
+</div>
       <div class="in-progress__grid" id="in-progress-grid">
         ${skeletonCards(4, 'progress')}
       </div>

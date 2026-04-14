@@ -169,9 +169,6 @@
   padding: 4px 8px;
   border-radius: 6px;
 }
-.section__see-all:hover {
-  background: var(--color-purple-50);
-}
 
 .featured__grid {
   display: grid;
