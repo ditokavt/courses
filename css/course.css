@@ -107,7 +107,6 @@
   margin-right: 177px;
 }
 
-
 .course__panel {
   overflow: hidden;
 }
@@ -141,7 +140,6 @@
   align-items: center;
   gap: 10px;
 }
-
 
 .course__panel-num {
   display: inline-flex;
@@ -325,7 +323,7 @@
 .course__session-seats.is-warning { color: var(--color-warning); }
 
 .course__price-summary {
-    margin-top: 32px;
+  margin-top: 32px;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -416,7 +414,7 @@
 
 .course__progress-bar {
   width: 100%;
-  height: 8px;
+  height: 24px;
   background: var(--color-grey-200);
   border-radius: 999px;
   overflow: hidden;
@@ -470,20 +468,44 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding-top: 8px;
-  border-top: 1px solid var(--color-grey-100);
+  gap: 18px;
+  padding: 40px 50px;
+  background: #fff;
+  border-radius: 8px;
 }
-.course__stars { display: flex; gap: 4px; }
-.course__star { font-size: 32px; color: var(--color-grey-200); cursor: pointer; transition: color 150ms; }
+
+.course__stars {
+  display: flex;
+  gap: 4px;
+  flex-direction: row-reverse;
+}
+
+.course__star {
+  font-size: 32px;
+  color: var(--color-grey-200);
+  cursor: pointer;
+  transition: color 150ms;
+}
+
+.course__star.is-active {
+  color: #FBBF24;
+}
+
 .course__star:hover,
-.course__star.is-active { color: var(--color-warning); }
+.course__star:hover ~ .course__star {
+  color: #FBBF24;
+}
+
+.course__stars--readonly .course__star {
+  cursor: default;
+  pointer-events: none;
+}
 
 .course__rating-submit-btn {
   width: 100%;
   height: 44px;
   background: var(--color-purple-500);
-  color: #fff;
+  color: var(--color-grey-50);
   border: none;
   border-radius: 10px;
   cursor: pointer;

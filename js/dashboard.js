@@ -61,38 +61,30 @@ async function initDashboard() {
     <section class="in-progress" id="in-progress-section">
       <div class="section__header">
         <h2 class="section__title text-h1">Continue Learning</h2>
-        ${loggedIn && inProgressCourses.length > 3 ? '<button class="section__see-all text-body-xs" id="see-all-btn">See All</button>' : ''}
       </div>
-      <div class="section__header">
-  <p class="section__subtitle text-body-m">Pick up where you left</p>
-  <button class="section__see-all text-body-m" 
-    ${inProgressCourses.length > 3 ? 'onclick="openSidebar()"' : 'disabled'}
-    style="${inProgressCourses.length <= 3 ? 'cursor:not-allowed;' : ''}">
-    See All
-  </button>
-</div>
+      <div class="section__header" style="display: flex; justify-content: space-between; align-items: center;">
+        <p class="section__subtitle text-body-m" style="margin-top: 40px;">Pick up where you left off</p>
+        <button class="section__see-all text-body-m" id="main-see-all-btn"
+          ${inProgressCourses.length > 3 ? '' : 'disabled'} 
+          style="${inProgressCourses.length <= 3 ? 'cursor: not-allowed; opacity: 0.5;' : 'cursor: pointer;'}">
+          See All
+        </button>
+      </div>
       <div class="in-progress__grid" id="in-progress-grid">
-        ${skeletonCards(4, 'progress')}
+        ${skeletonCards(3, 'progress')}
       </div>
     </section>
   `;
 
-  let layout = [];
-
-  if (loggedIn) {
-    if (inProgressCourses.length > 0) {
-      layout = [inProgressHTML, featuredHTML];
-    } else {
-      layout = [featuredHTML];
-    }
-  } else {
-    layout = [featuredHTML, inProgressHTML];
-  }
+  let layout = loggedIn && inProgressCourses.length > 0 
+    ? [inProgressHTML, featuredHTML] 
+    : [featuredHTML, inProgressHTML];
 
   root.innerHTML = layout.join('');
 
-  if (loggedIn && inProgressCourses.length > 4) {
-    document.getElementById('see-all-btn')?.addEventListener('click', () => {
+  const seeAllBtn = document.getElementById('main-see-all-btn');
+  if (seeAllBtn && inProgressCourses.length > 3) {
+    seeAllBtn.addEventListener('click', () => {
       if (typeof openSidebar === 'function') openSidebar();
     });
   }
@@ -174,21 +166,17 @@ async function renderInProgress(prefetchedCourses) {
   grid.style.display = 'grid';
   if (prefetchedCourses && prefetchedCourses.length > 0) {
     const cards = await Promise.all(
-      prefetchedCourses.slice(0, 4).map(e => progressCard(e))
+      prefetchedCourses.slice(0, 3).map(e => progressCard(e))
     );
     grid.innerHTML = cards.join('');
   }
 }
 
 async function progressCard(enrollment) {
-  const c        = enrollment.course || enrollment;
+  const c = enrollment.course || enrollment;
   const progress = enrollment.progress ?? 0;
-
-  let rating = null;
-  try {
-    const res = await api.getCourse(c.id);
-    rating = Number(res.data?.avgRating || 0).toFixed(1);
-  } catch(e) {}
+  
+  const rating = c.avgRating ? Number(c.avgRating).toFixed(1) : "0.0";
 
   return `
     <div class="progress__card">
@@ -201,7 +189,7 @@ async function progressCard(enrollment) {
           <div class="progress__card-meta">
             <p class="text-body-xs" style="color:var(--color-grey-400);">Lecturer <span style="color:var(--color-grey-700);">${c.instructor?.name || ''}</span></p>
             <div class="progress__card-rating">
-              <span class="progress__card-star">★</span>
+              <span class="progress__card-star" style="color:var(--color-warning);">★</span>
               <span class="progress__card-rating-value text-body-xs">${rating}</span>
             </div>
           </div>

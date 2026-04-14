@@ -238,6 +238,38 @@ function renderEnrolledPanel(isCompleted) {
   const location = schedule?.location || '';
   const isOnline = sessionName.toLowerCase().includes('online');
 
+  function renderRatingSection() {
+    // შეუფასებია და გვაქვს რეიტინგი — ვარსკვლავებს ვაჩვენებთ read-only
+    if (courseData.isRated && courseData.userRating) {
+      return `
+        <p class="text-body-s" style="color:var(--color-grey-600);">Rate your experience</p>
+        <div class="course__stars course__stars--readonly">
+          ${[5, 4, 3, 2, 1].map(i => `
+            <span class="course__star ${i <= courseData.userRating ? 'is-active' : ''}" data-value="${i}">★</span>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    // არ შეუფასებია — ფორმას ვაჩვენებთ
+    if (!courseData.isRated) {
+      return `
+        <p class="text-body-s" style="color:var(--color-grey-600);">Rate your experience</p>
+        <div class="course__stars" id="star-rating">
+          ${[5, 4, 3, 2, 1].map(i => `
+            <span class="course__star" data-value="${i}" onclick="setRating(${i}, 'star-rating')">★</span>
+          `).join('')}
+        </div>
+        <button class="course__rating-submit-btn text-body-s" onclick="submitRating()">Done</button>
+      `;
+    }
+
+    // isRated=true მაგრამ userRating არ მოვიდა — არაფერს ვაჩვენებთ
+    return '';
+  }
+
+  const ratingHTML = renderRatingSection();
+
   return `
     <div class="course__enrolled-panel">
       <span class="course__status-badge ${isCompleted ? 'course__status-badge--completed' : 'course__status-badge--enrolled'} text-micro-medium">
@@ -294,20 +326,10 @@ function renderEnrolledPanel(isCompleted) {
           </svg>
           Retake Course
         </button>
+        ${ratingHTML ? `
         <div class="course__rating-section" id="rating-section">
-          ${courseData.isRated
-            ? `<p class="text-micro-regular" style="color:var(--color-grey-400);text-align:center;">You've already rated this course</p>`
-            : `
-              <p class="text-micro-medium" style="color:var(--color-grey-600);">Rate your experience</p>
-              <div class="course__stars" id="star-rating">
-                ${[1,2,3,4,5].map(i => `
-                  <span class="course__star" data-value="${i}" onclick="setRating(${i})">★</span>
-                `).join('')}
-              </div>
-              <button class="course__rating-submit-btn text-body-s" onclick="submitRating()">Done</button>
-            `
-          }
-        </div>
+          ${ratingHTML}
+        </div>` : ''}
       ` : `
         <button class="course__complete-btn" onclick="handleComplete()">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -659,10 +681,14 @@ async function handleRetake() {
   }
 }
 
-function setRating(value) {
+function setRating(value, containerId) {
   currentRating = value;
-  document.querySelectorAll('.course__star').forEach((star, i) => {
-    star.classList.toggle('is-active', i < value);
+  const container = containerId
+    ? document.getElementById(containerId)
+    : document.getElementById('star-rating') || document.getElementById('modal-star-rating');
+  if (!container) return;
+  container.querySelectorAll('.course__star').forEach(star => {
+    star.classList.toggle('is-active', Number(star.dataset.value) <= value);
   });
 }
 
@@ -670,19 +696,36 @@ async function submitRating() {
   if (!currentRating) return;
   try {
     await api.submitReview(courseData.id, { rating: currentRating });
-    courseData.isRated = true;
 
+    courseData.isRated = true;
+    courseData.userRating = currentRating;
+
+    // განვაახლოთ avgRating API-დან
     const updated = await api.getCourse(courseData.id);
-    if (updated.data) courseData.avgRating = updated.data.avgRating;
+    if (updated.data) {
+      courseData.avgRating = updated.data.avgRating;
+      // თუ API userRating-ს გვიბრუნებს, ის გამარჯვებს
+      if (updated.data.userRating) {
+        courseData.userRating = updated.data.userRating;
+      }
+    }
 
     const ratingEl = document.querySelector('.course__rating-value');
     if (ratingEl && courseData.avgRating) {
       ratingEl.textContent = Number(courseData.avgRating).toFixed(1);
     }
 
+    // rating section-ს ვაახლებთ — ვარსკვლავებს ვაჩვენებთ
     const section = document.getElementById('rating-section');
     if (section) {
-      section.innerHTML = `<p class="text-micro-regular" style="color:var(--color-grey-400);text-align:center;">You've already rated this course</p>`;
+      section.innerHTML = `
+        <p class="text-body-s" style="color:var(--color-grey-600);">Rate your experience</p>
+        <div class="course__stars course__stars--readonly">
+          ${[5, 4, 3, 2, 1].map(i => `
+            <span class="course__star ${i <= courseData.userRating ? 'is-active' : ''}" data-value="${i}">★</span>
+          `).join('')}
+        </div>
+      `;
     }
 
     closeModal('congratulations');

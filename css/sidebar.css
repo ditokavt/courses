@@ -81,7 +81,6 @@
 .sidebar__list {
   padding-top: 37px;
   padding-left: 73px;
-  padding-bottom: 40px;
   display: flex;
   flex-direction: column;
   gap: 16px;

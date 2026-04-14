@@ -33,7 +33,6 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeAllModals();
 });
 
-
 function initLoginModal() {
   const html = `
   <div class="modal-overlay" id="modal-login">
@@ -627,6 +626,109 @@ async function handleProfileSave() {
   setLoading('profile-submit', false, 'Update Profile');
 }
 
+function initEnrollmentModals() {
+  const html = `
+    <div class="modal-overlay" id="modal-enrollment-confirmed">
+      <div class="modal modal--simple">
+        <button class="modal__close" onclick="closeModal('enrollment-confirmed')">
+          <svg width="24" height="24" viewBox="0 0 16 16" fill="none">
+            <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="modal__simple-body">
+          <div class="modal__simple-icon modal__simple-icon--success">
+            <img src="assets/confirmed.svg" width="94" height="94" alt="" />
+          </div>
+          <h2 class="modal__title text-h2">Enrollment Confirmed!</h2>
+          <p class="modal__subtitle text-body-xs" id="enrollment-confirmed-text">
+            You've successfully enrolled to the course!
+          </p>
+        </div>
+        <div class="modal__footer">
+          <button class="btn btn--primary text-body-s" onclick="closeModal('enrollment-confirmed')">Done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-enrollment-conflict">
+      <div class="modal modal--simple">
+        <button class="modal__close" onclick="closeModal('enrollment-conflict')">
+          <svg width="24" height="24" viewBox="0 0 16 16" fill="none">
+            <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="modal__simple-body">
+          <div class="modal__simple-icon modal__simple-icon--warning">
+            <img src="assets/problem.svg" width="94" height="94" alt="" />
+          </div>
+          <h2 class="modal__title text-h2">Enrollment Conflict</h2>
+          <p class="modal__subtitle text-body-xs" id="conflict-text">
+            You are already enrolled in another course with the same schedule.
+          </p>
+        </div>
+        <div class="modal__footer">
+          <button class="btn btn--primary text-body-s" onclick="handleEnrollForce()">Continue Anyway</button>
+          <button class="btn btn--secondary text-body-s" onclick="closeModal('enrollment-conflict')">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-complete-profile">
+      <div class="modal modal--simple">
+        <button class="modal__close" onclick="closeModal('complete-profile')">
+          <svg width="24" height="24" viewBox="0 0 16 16" fill="none">
+            <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="modal__simple-body">
+          <div class="modal__simple-icon modal__simple-icon--neutral">
+            <img src="assets/incomplete.svg" width="94" height="94" alt="" />
+          </div>
+          <h2 class="modal__title text-h2">Complete your profile to continue</h2>
+          <p class="modal__subtitle text-body-xs">
+            You need to complete your profile before enrolling in this course.
+          </p>
+        </div>
+        <div class="modal__footer">
+          <button class="btn btn--primary text-body-s" onclick="closeModal('complete-profile'); openProfileModal();">Complete Profile</button>
+          <button class="btn btn--secondary text-body-s" onclick="closeModal('complete-profile')">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-congratulations">
+      <div class="modal modal--simple">
+        <button class="modal__close" onclick="closeModal('congratulations')">
+          <svg width="24" height="24" viewBox="0 0 16 16" fill="none">
+            <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="modal__simple-body">
+          <div class="modal__simple-icon modal__simple-icon--celebration">
+            <img src="assets/congratulation.svg" width="94" height="94" alt="" />
+          </div>
+          <h2 class="modal__title text-h2">Congratulations!</h2>
+          <p class="modal__subtitle text-body-xs" id="congrats-text">
+            You've completed the course!
+          </p>
+          <div class="modal__stars" id="modal-star-rating">
+            <p class="text-micro-medium">Rate your experience</p>
+            <div class="course__stars">
+              ${[5, 4, 3, 2, 1].map(i => `
+                <span class="course__star" data-value="${i}" onclick="setRating(${i}, 'modal-star-rating')">★</span>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+        <div class="modal__footer">
+          <button class="btn btn--primary text-body-s" onclick="submitRating()">Done</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.insertAdjacentHTML('beforeend', html);
+}
 
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -670,113 +772,6 @@ function togglePassword(inputId, btn) {
         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
         <circle cx="12" cy="12" r="3"/>
       </svg>`;
-}
-function initEnrollmentModals() {
-  const html = `
-    <!-- Enrollment Confirmed -->
-    <div class="modal-overlay" id="modal-enrollment-confirmed">
-      <div class="modal modal--simple">
-        <button class="modal__close" onclick="closeModal('enrollment-confirmed')">
-          <svg width="24" height="24" viewBox="0 0 16 16" fill="none">
-            <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </button>
-        <div class="modal__simple-body">
-          <div class="modal__simple-icon modal__simple-icon--success">
-            <img src="assets/confirmed.svg" width="94" height="94" alt="close" />
-          </div>
-          <h2 class="modal__title text-h2">Enrollment Confirmed!</h2>
-          <p class="modal__subtitle text-body-xs" id="enrollment-confirmed-text">
-            You've successfully enrolled to the course!
-          </p>
-        </div>
-        <div class="modal__footer">
-          <button class="btn btn--primary text-body-s" onclick="closeModal('enrollment-confirmed')">Done</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Enrollment Conflict -->
-    <div class="modal-overlay" id="modal-enrollment-conflict">
-      <div class="modal modal--simple">
-        <button class="modal__close" onclick="closeModal('enrollment-conflict')">
-          <svg width="24" height="24" viewBox="0 0 16 16" fill="none">
-            <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </button>
-        <div class="modal__simple-body">
-          <div class="modal__simple-icon modal__simple-icon--warning">
-            <img src="assets/problem.svg" width="94" height="94" alt="close" />
-          </div>
-          <h2 class="modal__title text-h2">Enrollment Conflict</h2>
-          <p class="modal__subtitle text-body-xs" id="conflict-text">
-            You are already enrolled in another course with the same schedule.
-          </p>
-        </div>
-        <div class="modal__footer">
-          <button class="btn btn--primary text-body-s" onclick="handleEnrollForce()">Continue Anyway</button>
-          <button class="btn btn--secondary text-body-s" onclick="closeModal('enrollment-conflict')">Cancel</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Complete Your Profile -->
-    <div class="modal-overlay" id="modal-complete-profile">
-      <div class="modal modal--simple">
-        <button class="modal__close" onclick="closeModal('complete-profile')">
-          <svg width="24" height="24" viewBox="0 0 16 16" fill="none">
-            <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </button>
-        <div class="modal__simple-body">
-          <div class="modal__simple-icon modal__simple-icon--neutral">
-            <img src="assets/incomplete.svg" width="94" height="94" alt="close" />
-          </div>
-          <h2 class="modal__title text-h2">Complete your profile to continue</h2>
-          <p class="modal__subtitle text-body-xs">
-            You need to complete your profile before enrolling in this course.
-          </p>
-        </div>
-        <div class="modal__footer">
-          <button class="btn btn--primary text-body-s" onclick="closeModal('complete-profile'); openProfileModal();">Complete Profile</button>
-          <button class="btn btn--secondary text-body-s" onclick="closeModal('complete-profile')">Cancel</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Congratulations -->
-    <div class="modal-overlay" id="modal-congratulations">
-      <div class="modal modal--simple">
-        <button class="modal__close" onclick="closeModal('congratulations')">
-          <svg width="24" height="24" viewBox="0 0 16 16" fill="none">
-            <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </button>
-        <div class="modal__simple-body">
-          <div class="modal__simple-icon modal__simple-icon--celebration">
-            <img src="assets/congratulation.svg" width="94" height="94" alt="close" />
-          </div>
-          <h2 class="modal__title text-h2">Congratulations!</h2>
-          <p class="modal__subtitle text-body-xs" id="congrats-text">
-            You've completed the course!
-          </p>
-          <div class="modal__stars" id="modal-star-rating">
-            <p class="text-micro-medium" style="color:var(--color-grey-600);">Rate your experience</p>
-            <div class="course__stars">
-              ${[1,2,3,4,5].map(i => `
-                <span class="course__star" style="color: var(--color-grey-200);" data-value="${i}" onclick="setRating(${i})">★</span>
-              `).join('')}
-            </div>
-          </div>
-        </div>
-        <div class="modal__footer">
-          <button class="btn btn--primary text-body-s" onclick="submitRating()">Done</button>
-        </div>
-      </div>
-    </div>
-  `;
-
-  document.body.insertAdjacentHTML('beforeend', html);
 }
 
 document.addEventListener('DOMContentLoaded', () => {

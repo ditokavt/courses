@@ -88,11 +88,10 @@ function enrollmentCard(e) {
 
   const weeklyLabel = schedule?.weeklySchedule?.label || '';
   const timeLabel = schedule?.timeSlot?.label || '';
-  const sessionName = schedule?.sessionType?.name || ''; // მაგ: "Online", "Hybrid", "In-Person"
+  const sessionName = schedule?.sessionType?.name || '';
   const location = schedule?.location || '';
 
-  // ხატულების შერჩევის ლოგიკა
-  let sessionIcon = 'assets/PackageOpen.svg'; // ნაგულისხმევი (default)
+  let sessionIcon = 'assets/PackageOpen.svg';
   const type = sessionName.toLowerCase();
 
   if (type.includes('online')) {
@@ -100,7 +99,6 @@ function enrollmentCard(e) {
   } else if (type.includes('hybrid')) {
     sessionIcon = 'assets/hybrid.svg';
   } else if (type.includes('person') || type.includes('office')) {
-    // აქ შეგიძლია ჩასვა in-person-ის მისამართი, თუ გაქვს
     sessionIcon = 'assets/PackageOpen.svg'; 
   }
 
