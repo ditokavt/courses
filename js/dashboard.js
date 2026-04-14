@@ -150,8 +150,11 @@ async function renderInProgress(prefetchedCourses) {
         </div>
         <div class="progress-locked__overlay">
           <div class="progress-locked__box">
-            <div class="progress-locked__icon">
-              <img src="./assets/lock.svg" alt="Locked" />
+            <div class="progress-locked__icon" style="display:flex;align-items:center;justify-content:center;">
+              <svg width="34" height="37" viewBox="0 0 24 24" fill="none" stroke="var(--color-purple-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
             </div>
             <p class="progress-locked__text text-body-s">Sign in to track your learning progress</p>
             <button class="progress-locked__btn text-body-s" id="locked-login-btn">Log In</button>

@@ -33,6 +33,18 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeAllModals();
 });
 
+const EYE_OPEN = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-grey-300)" stroke-width="2">
+  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+  <circle cx="12" cy="12" r="3"/>
+</svg>`;
+
+const EYE_CLOSED = `<svg width="34" height="37" viewBox="0 0 24 24" fill="none" stroke="var(--color-grey-300)" stroke-width="2" stroke-linecap="round">
+  <path d="M5 12 A7 7 0 0 0 19 12"/>
+  <line x1="7.5"  y1="17.5" x2="6"   y2="22"/>
+  <line x1="12"   y1="19"   x2="12"  y2="24"/>
+  <line x1="16.5" y1="17.5" x2="18"  y2="22"/>
+</svg>`;
+
 function initLoginModal() {
   const html = `
   <div class="modal-overlay" id="modal-login">
@@ -58,10 +70,7 @@ function initLoginModal() {
           <div class="input-wrapper">
             <input class="form-input text-body-xs" type="password" id="login-password" placeholder="••••••••" />
             <button class="input-eye" type="button" onclick="togglePassword('login-password', this)">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                <circle cx="12" cy="12" r="3"/>
-              </svg>
+              ${EYE_CLOSED}
             </button>
           </div>
           <span class="form-error text-micro-regular" id="login-password-error"></span>
@@ -148,7 +157,7 @@ function initRegisterModal() {
       <div class="modal__body" id="reg-body"></div>
       <div class="modal__footer">
         <button class="btn btn--primary text-body-s" id="reg-next-btn">Next</button>
-        <div class="modal__or text-micro-regular">or</div>
+        <div class="modal__or text-micro-regular" ">or</div>
         <p class="modal__switch text-body-xs">Already have an account? <a onclick="openModal('login')">Log In</a></p>
       </div>
     </div>
@@ -201,10 +210,7 @@ function renderRegisterStep(step) {
         <div class="input-wrapper">
           <input class="form-input text-body-xs" type="password" id="reg-password" placeholder="••••••••" />
           <button class="input-eye" type="button" onclick="togglePassword('reg-password', this)">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-              <circle cx="12" cy="12" r="3"/>
-            </svg>
+            ${EYE_CLOSED}
           </button>
         </div>
         <span class="form-error text-micro-regular" id="reg-password-error"></span>
@@ -214,10 +220,7 @@ function renderRegisterStep(step) {
         <div class="input-wrapper">
           <input class="form-input text-body-xs" type="password" id="reg-confirm" placeholder="••••••••" />
           <button class="input-eye" type="button" onclick="togglePassword('reg-confirm', this)">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-              <circle cx="12" cy="12" r="3"/>
-            </svg>
+            ${EYE_CLOSED}
           </button>
         </div>
         <span class="form-error text-micro-regular" id="reg-confirm-error"></span>
@@ -764,14 +767,7 @@ function togglePassword(inputId, btn) {
   if (!input) return;
   const isHidden = input.type === 'password';
   input.type = isHidden ? 'text' : 'password';
-  btn.innerHTML = isHidden
-    ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19M1 1l22 22"/>
-      </svg>`
-    : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-        <circle cx="12" cy="12" r="3"/>
-      </svg>`;
+  btn.innerHTML = isHidden ? EYE_OPEN : EYE_CLOSED;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
