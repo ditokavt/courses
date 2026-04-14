@@ -59,13 +59,24 @@ const api = {
   getSessionTypes: (id, weeklyScheduleId, timeSlotId) =>
     fetch(`${API_BASE}/courses/${id}/session-types?weekly_schedule_id=${weeklyScheduleId}&time_slot_id=${timeSlotId}`, { headers: headers() }).then(r => r.json()),
 
-  // ENROLLMENTS
   getEnrollments: () =>
     fetch(`${API_BASE}/enrollments`, { headers: headers(true) }).then(r => r.json()),
 
-  enroll: (data) =>
-    fetch(`${API_BASE}/enrollments`, { method: 'POST', headers: headers(true), body: JSON.stringify(data) }).then(r => r.json()),
-
+  enroll: async (data) => {
+  const res = await fetch(`${API_BASE}/enrollments`, {
+    method: 'POST',
+    headers: headers(true),
+    body: JSON.stringify(data)
+  });
+  const json = await res.json();
+  if (!res.ok) {
+    const err = new Error(json.message || 'Enrollment failed');
+    err.status = res.status;
+    err.conflicts = json.conflicts;
+    throw err;
+  }
+    return json;
+  },
   completeEnrollment: (id) =>
     fetch(`${API_BASE}/enrollments/${id}/complete`, { method: 'PATCH', headers: headers(true) }).then(r => r.json()),
 

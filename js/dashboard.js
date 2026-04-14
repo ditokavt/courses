@@ -154,12 +154,12 @@ async function renderInProgress(prefetchedCourses) {
     grid.innerHTML = `
       <div class="progress-locked">
         <div class="progress-locked__cards" aria-hidden="true">
-          ${[1, 2, 3, 4].map(() => mockProgressCard()).join('')}
+          ${[1, 2, 3].map(() => mockProgressCard()).join('')}
         </div>
         <div class="progress-locked__overlay">
           <div class="progress-locked__box">
             <div class="progress-locked__icon">
-              <img src="assets/lock.svg" alt="Locked" />
+              <img src="./assets/lock.svg" alt="Locked" />
             </div>
             <p class="progress-locked__text text-body-s">Sign in to track your learning progress</p>
             <button class="progress-locked__btn text-body-s" id="locked-login-btn">Log In</button>
@@ -226,9 +226,8 @@ function mockProgressCard() {
     <div class="progress__card">
       <div class="progress__card-top-row">
         <div class="progress__card-img">
-          <img src="assets/blured.svg" alt="Course Image" onerror="this.parentElement.style.background='var(--color-grey-200)'"/>
+          <img src="./assets/blured.svg" alt="Course Image" onerror="this.parentElement.style.background='var(--color-grey-200)'"/>
         </div>
-        
         <div class="progress__card-info">
           <div class="progress__card-meta">
             <p class="progress__card-lecturer text-body-xs"><span style="color: var(--color-grey-400);">Lecturer </span>Marilyn Mango</p>

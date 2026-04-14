@@ -139,9 +139,21 @@
 .in-progress {
   max-width: 1566px;
   margin: 64px auto;
+  
 }
 .in-progress__grid {
   grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.progress__card:hover {
+  border: 0.5px solid var(--color-purple-200);
+  box-shadow: 0px 0px 25px 0px rgba(138, 130, 212, 0.1);
+  cursor: pointer;
+}
+.progress__card:active,
+.progress__card.is-selected {
+  border: 1px solid var(--color-purple-300);
+  box-shadow: 0px 0px 35px 0px rgba(138, 130, 212, 0.25);
 }
 .section__header {
   display: flex;
@@ -189,7 +201,16 @@
   border: 1px solid var(--color-grey-100);
   padding: 20px;
 }
-
+.featured__card:hover {
+  border: 0.5px solid var(--color-purple-200);
+  box-shadow: 0px 0px 25px 0px rgba(138, 130, 212, 0.1);
+  cursor: pointer;
+}
+.featured__card:active,
+.featured__card.is-selected {
+  border: 1px solid var(--color-purple-300);
+  box-shadow: 0px 0px 35px 0px rgba(138, 130, 212, 0.25);
+}
 .featured__card-meta {
   display: flex;
   align-items: center;

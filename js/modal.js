@@ -764,7 +764,7 @@ function initEnrollmentModals() {
             <p class="text-micro-medium" style="color:var(--color-grey-600);">Rate your experience</p>
             <div class="course__stars">
               ${[1,2,3,4,5].map(i => `
-                <span class="course__star" data-value="${i}" onclick="setRating(${i})">★</span>
+                <span class="course__star" style="color: var(--color-grey-200);" data-value="${i}" onclick="setRating(${i})">★</span>
               `).join('')}
             </div>
           </div>
