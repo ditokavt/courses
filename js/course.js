@@ -239,7 +239,6 @@ function renderEnrolledPanel(isCompleted) {
   const isOnline = sessionName.toLowerCase().includes('online');
 
   function renderRatingSection() {
-    // შეუფასებია და გვაქვს რეიტინგი — ვარსკვლავებს ვაჩვენებთ read-only
     if (courseData.isRated && courseData.userRating) {
       return `
         <p class="text-body-s" style="color:var(--color-grey-600);">Rate your experience</p>
@@ -251,7 +250,6 @@ function renderEnrolledPanel(isCompleted) {
       `;
     }
 
-    // არ შეუფასებია — ფორმას ვაჩვენებთ
     if (!courseData.isRated) {
       return `
         <p class="text-body-s" style="color:var(--color-grey-600);">Rate your experience</p>
@@ -264,7 +262,6 @@ function renderEnrolledPanel(isCompleted) {
       `;
     }
 
-    // isRated=true მაგრამ userRating არ მოვიდა — არაფერს ვაჩვენებთ
     return '';
   }
 
@@ -700,11 +697,9 @@ async function submitRating() {
     courseData.isRated = true;
     courseData.userRating = currentRating;
 
-    // განვაახლოთ avgRating API-დან
     const updated = await api.getCourse(courseData.id);
     if (updated.data) {
       courseData.avgRating = updated.data.avgRating;
-      // თუ API userRating-ს გვიბრუნებს, ის გამარჯვებს
       if (updated.data.userRating) {
         courseData.userRating = updated.data.userRating;
       }
@@ -715,20 +710,9 @@ async function submitRating() {
       ratingEl.textContent = Number(courseData.avgRating).toFixed(1);
     }
 
-    // rating section-ს ვაახლებთ — ვარსკვლავებს ვაჩვენებთ
-    const section = document.getElementById('rating-section');
-    if (section) {
-      section.innerHTML = `
-        <p class="text-body-s" style="color:var(--color-grey-600);">Rate your experience</p>
-        <div class="course__stars course__stars--readonly">
-          ${[5, 4, 3, 2, 1].map(i => `
-            <span class="course__star ${i <= courseData.userRating ? 'is-active' : ''}" data-value="${i}">★</span>
-          `).join('')}
-        </div>
-      `;
-    }
-
     closeModal('congratulations');
+    refreshCoursePanel();
+
   } catch (err) {
     console.error(err);
   }

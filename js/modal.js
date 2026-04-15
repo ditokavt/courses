@@ -669,9 +669,9 @@ function initEnrollmentModals() {
             You are already enrolled in another course with the same schedule.
           </p>
         </div>
-        <div class="modal__footer">
-          <button class="btn btn--primary text-body-s" onclick="handleEnrollForce()">Continue Anyway</button>
-          <button class="btn btn--secondary text-body-s" onclick="closeModal('enrollment-conflict')">Cancel</button>
+        <div class="modal__footer conflict">
+          <button class="btn btn--primary_conflict text-body-s" onclick="handleEnrollForce()">Continue Anyway</button>
+          <button class="btn btn--secondary_conflict text-body-s" onclick="closeModal('enrollment-conflict')">Cancel</button>
         </div>
       </div>
     </div>
@@ -692,7 +692,7 @@ function initEnrollmentModals() {
             You need to complete your profile before enrolling in this course.
           </p>
         </div>
-        <div class="modal__footer">
+        <div class="modal__footer conflict">
           <button class="btn btn--primary text-body-s" onclick="closeModal('complete-profile'); openProfileModal();">Complete Profile</button>
           <button class="btn btn--secondary text-body-s" onclick="closeModal('complete-profile')">Cancel</button>
         </div>

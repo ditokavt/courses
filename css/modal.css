@@ -217,7 +217,23 @@
 .modal__footer {
   padding: 0 50px 40px;
 }
+.conflict {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
 
+.btn--secondary_conflict {
+  
+  background-color: var(--color-purple-500);
+  color: var(--color-grey-50);
+}
+
+.btn--primary_conflict {
+  background: transparent;
+  color: var(--color-purple-500);
+  border: 1.5px solid var(--color-purple-300);
+}
 .btn {
   width: 100%;
   height: 48px;
@@ -228,7 +244,6 @@
   text-align: center;
   cursor: pointer;
   transition: all 200ms ease;
-  border: none;
 }
 .btn--primary {
   color: var(--color-grey-50);

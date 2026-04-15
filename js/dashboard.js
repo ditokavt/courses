@@ -166,13 +166,17 @@ async function renderInProgress(prefetchedCourses) {
     return;
   }
 
-  grid.style.display = 'grid';
-  if (prefetchedCourses && prefetchedCourses.length > 0) {
-    const cards = await Promise.all(
-      prefetchedCourses.slice(0, 3).map(e => progressCard(e))
-    );
-    grid.innerHTML = cards.join('');
+  if (!prefetchedCourses || prefetchedCourses.length === 0) {
+    const section = document.getElementById('in-progress-section');
+    if (section) section.style.display = 'none';
+    return;
   }
+
+  grid.style.display = 'grid';
+  const cards = await Promise.all(
+    prefetchedCourses.slice(0, 3).map(e => progressCard(e))
+  );
+  grid.innerHTML = cards.join('');
 }
 
 async function progressCard(enrollment) {
