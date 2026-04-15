@@ -31,8 +31,18 @@ async function initCoursePage() {
   if (!id) return;
 
   try {
-    const res = await api.getCourse(id);
-    courseData = res.data;
+    const [courseRes, catalogRes] = await Promise.all([
+      api.getCourse(id),
+      api.getCourses(`?page=1&per_page=100`)
+    ]);
+
+    courseData = courseRes.data;
+    
+    const catalogCourse = catalogRes.data?.find(c => c.id === Number(id));
+    if (catalogCourse?.avgRating) {
+      courseData.avgRating = catalogCourse.avgRating;
+    }
+
     enrollmentData = courseData.enrollment || null;
     renderCoursePage();
   } catch (err) {
