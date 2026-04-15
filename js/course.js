@@ -31,19 +31,31 @@ async function initCoursePage() {
   if (!id) return;
 
   try {
-    const [courseRes, catalogRes] = await Promise.all([
-      api.getCourse(id),
-      api.getCourses(`?page=1&per_page=100`)
-    ]);
-
+    const courseRes = await api.getCourse(id);
     courseData = courseRes.data;
-    
-    const catalogCourse = catalogRes.data?.find(c => c.id === Number(id));
+    enrollmentData = courseData.enrollment || null;
+
+    const page1 = await api.getCourses('?page=1&per_page=10');
+    const totalPages = page1.meta?.lastPage || 1;
+
+    let allCourses = [...(page1.data || [])];
+
+    if (totalPages > 1) {
+      const restPages = await Promise.all(
+        Array.from({ length: totalPages - 1 }, (_, i) =>
+          api.getCourses(`?page=${i + 2}&per_page=10`)
+        )
+      );
+      restPages.forEach(res => {
+        allCourses = allCourses.concat(res.data || []);
+      });
+    }
+
+    const catalogCourse = allCourses.find(c => c.id === Number(id));
     if (catalogCourse?.avgRating) {
       courseData.avgRating = catalogCourse.avgRating;
     }
 
-    enrollmentData = courseData.enrollment || null;
     renderCoursePage();
   } catch (err) {
     console.error('Failed to load course', err);
